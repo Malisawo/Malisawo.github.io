@@ -83,12 +83,24 @@
         .forgot-password:hover {
             text-decoration: underline;
         }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Login to Nydo_265</h2>
-        <form>
+        <form id="loginForm">
             <div class="input-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -99,7 +111,35 @@
             </div>
             <button type="submit" class="login-btn">Login</button>
             <a href="#" class="forgot-password">Forgot your password?</a>
+            <p id="message" class="error"></p>
         </form>
     </div>
+
+    <script>
+        // Hardcoded credentials (for demonstration only)
+        const correctUsername = 'nydo_265';
+        const correctPassword = 'yourpassword';
+
+        // Form submission event
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            // Get the input values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Check if the credentials are correct
+            if (username === correctUsername && password === correctPassword) {
+                // Successful login
+                document.getElementById('message').textContent = 'Login successful!';
+                document.getElementById('message').className = 'success';
+                // Redirect to another page or perform other actions here
+            } else {
+                // Failed login
+                document.getElementById('message').textContent = 'Incorrect username or password.';
+                document.getElementById('message').className = 'error';
+            }
+        });
+    </script>
 </body>
 </html>
