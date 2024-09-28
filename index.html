@@ -3,143 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Nydo_265</title>
+    <title>Happy Birthday!</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #000000, #6a0dad); /* Gradient background */
+            color: #fff; /* White text */
+            overflow: hidden; /* Hide overflowing hearts */
         }
 
-        .login-container {
-            background: #2a175f;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .login-container h2 {
-            margin-bottom: 30px;
-            font-size: 24px;
+        .container {
             text-align: center;
-            color: #333333;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            position: relative;
+            max-width: 600px;
+            margin: 100px auto;
         }
 
-        .input-group {
+        h1 {
+            font-size: 50px;
             margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Text shadow for better visibility */
         }
 
-        .input-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #555555;
+        p {
+            font-size: 20px;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow */
         }
 
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #cccccc;
-            font-size: 16px;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background: #007bff;
+        .button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #fff;
+            color: #6a0dad;
             border: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 16px;
+            border-radius: 30px;
+            font-size: 18px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .login-btn:hover {
-            background: #0056b3;
+        .button:hover {
+            background-color: #eee;
         }
 
-        .forgot-password {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #007bff;
-            text-decoration: none;
+        /* Heart shape */
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: fall 5s infinite ease-in-out;
         }
 
-        .forgot-password:hover {
-            text-decoration: underline;
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
         }
 
-        .error {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
+        .heart::before {
+            top: -25px;
+            left: 0;
         }
 
-        .success {
-            color: green;
-            text-align: center;
-            margin-top: 10px;
+        .heart::after {
+            left: 25px;
+            top: 0;
         }
+
+        .heart.purple {
+            background-color: #6a0dad;
+        }
+
+        .heart.purple::before,
+        .heart.purple::after {
+            background-color: #6a0dad;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -50px;
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+
+        /* Random hearts generation */
+        .heart:nth-child(odd) {
+            animation-duration: 7s;
+            left: 10%;
+        }
+        .heart:nth-child(even) {
+            animation-duration: 6s;
+            left: 80%;
+        }
+
+        .heart:nth-child(3) {
+            left: 50%;
+        }
+
+        .heart:nth-child(4) {
+            left: 30%;
+        }
+
+        .heart:nth-child(5) {
+            left: 70%;
+        }
+
+        .heart:nth-child(6) {
+            left: 20%;
+        }
+        
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login to Nydo_265</h2>
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="login-btn">Login</button>
-            <a href="#" class="forgot-password">Forgot your password?</a>
-            <p id="message" class="error"></p>
-        </form>
+
+    <div class="container">
+        <h1>Happy Birthday, Samantha !</h1>
+        <p style="display: none;">Happy birthday to an amazing person and an even more incredible friend! On your special day, October 6th, I want to acknowledge the incredible person you are. I'm grateful for the love and memories we share, and I'm thankful for our beautiful friendship. Today, I celebrate your kindness, compassion, and strength. May this new year bring you unparalleled joy, success, and adventures that fill your heart with happiness. Here's to another year of friendship, growth, and making more unforgettable memories together! Cheers to you on your birthday</p>
+        <button id="firstButton" class="button" onclick="showParagraph()">Click Here!</button>
+
+        <button id="secondButton" class="button" style="display: none;" onclick="sendWhatsAppMessage()">Click for a surprise</button> <!-- Initially hidden -->
+
     </div>
 
+    <!-- Adding multiple hearts to the body -->
+    <div class="heart"></div>
+    <div class="heart purple"></div>
+    <div class="heart"></div>
+    <div class="heart purple"></div>
+    <div class="heart"></div>
+    <div class="heart purple"></div>
+
     <script>
-        // Hardcoded credentials (for demonstration only)
-        const correctUsername = 'nydo265';
-        const correctPassword = 'hewashere';
+      function showParagraph() {
+    // Show the paragraph
+    var paragraph = document.querySelector("p");
+    paragraph.style.display = "block";
 
-        // Form submission event
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form from submitting normally
+    // Hide the first button
+    var firstButton = document.getElementById("firstButton");
+    firstButton.style.display = "none";
 
-            // Get the input values
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    // Show the second button
+    var secondButton = document.getElementById("secondButton");
+    secondButton.style.display = "block";
+}
 
-            // Check if the credentials are correct
-            if (username === correctUsername && password === correctPassword) {
-                // Successful login
-                document.getElementById('message').textContent = 'Login successful!';
-                document.getElementById('message').className = 'success';
-                // Redirect to another page or perform other actions here
-            } else {
-                // Failed login
-                document.getElementById('message').textContent = 'Incorrect username or password.';
-                document.getElementById('message').className = 'error';
-            }
-        });
+function sendWhatsAppMessage() {
+    var phoneNumber = "265994797615"; // Replace with the actual phone number
+    var message = "CODE 5"; // The message to send
+    var encodedMessage = encodeURIComponent(message); // Encode the message
+    var whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappLink); // Open the link
+}
+
     </script>
+
 </body>
 </html>
