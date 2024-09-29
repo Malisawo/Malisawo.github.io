@@ -34,6 +34,8 @@
         }
 
         p {
+            text-align: left ;
+            word-wrap: break-word;
             font-size: 20px;
             color: #fff;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow */
@@ -62,7 +64,7 @@
     font-size: 50px;
     animation: fall 5s infinite ease-in-out;
     opacity: 0.8;
-    top: -50px; /* Start from above the screen */
+    top: -52px; /* Start from above the screen */
     }
 
         /* Animation to make the hearts fall */
@@ -109,6 +111,10 @@
     // Show the paragraph
     var paragraph = document.querySelector("p");
     paragraph.style.display = "block";
+
+    //hide the heading 1
+    var heading = document.querySelector("h1");
+    heading.style.display = "none"; 
 
     // Hide the first button
     var firstButton = document.getElementById("firstButton");
