@@ -56,45 +56,16 @@
             background-color: #eee;
         }
 
-        /* Heart shape */
+        /* Heart emoji styles */
         .heart {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: red;
-            transform: rotate(-45deg);
-            animation: fall 5s infinite ease-in-out;
-        }
+    position: absolute;
+    font-size: 50px;
+    animation: fall 5s infinite ease-in-out;
+    opacity: 0.8;
+    top: -50px; /* Start from above the screen */
+    }
 
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: red;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -25px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: 25px;
-            top: 0;
-        }
-
-        .heart.purple {
-            background-color: #6a0dad;
-        }
-
-        .heart.purple::before,
-        .heart.purple::after {
-            background-color: #6a0dad;
-        }
-
+        /* Animation to make the hearts fall */
         @keyframes fall {
             0% {
                 top: -50px;
@@ -104,35 +75,10 @@
             100% {
                 top: 100vh;
                 opacity: 0;
-                transform: translateX(100px);
+                transform: translateX(100px); /* Makes them drift slightly */
             }
         }
 
-        /* Random hearts generation */
-        .heart:nth-child(odd) {
-            animation-duration: 7s;
-            left: 10%;
-        }
-        .heart:nth-child(even) {
-            animation-duration: 6s;
-            left: 80%;
-        }
-
-        .heart:nth-child(3) {
-            left: 50%;
-        }
-
-        .heart:nth-child(4) {
-            left: 30%;
-        }
-
-        .heart:nth-child(5) {
-            left: 70%;
-        }
-
-        .heart:nth-child(6) {
-            left: 20%;
-        }
         
     </style>
 </head>
@@ -143,17 +89,20 @@
         <p style="display: none;">Happy birthday to an amazing person and an even more incredible friend! On your special day, October 6th, I want to acknowledge the incredible person you are. I'm grateful for the love and memories we share, and I'm thankful for our beautiful friendship. Today, I celebrate your kindness, compassion, and strength. May this new year bring you unparalleled joy, success, and adventures that fill your heart with happiness. Here's to another year of friendship, growth, and making more unforgettable memories together! Cheers to you on your birthday</p>
         <button id="firstButton" class="button" onclick="showParagraph()">Click Here!</button>
 
-        <button id="secondButton" class="button" style="display: none;" onclick="sendWhatsAppMessage()">Click for a surprise</button> <!-- Initially hidden -->
+        <button id="secondButton" class="button" style="display: none;" onclick="sendWhatsAppMessage()" disabled>Click for a surprise</button> <!-- Initially hidden -->
 
     </div>
 
     <!-- Adding multiple hearts to the body -->
-    <div class="heart"></div>
-    <div class="heart purple"></div>
-    <div class="heart"></div>
-    <div class="heart purple"></div>
-    <div class="heart"></div>
-    <div class="heart purple"></div>
+    <div class="heart">❤️</div>
+    <div class="heart">💜</div>
+    <div class="heart">❤️</div>
+    <div class="heart">💜</div>
+    <div class="heart">❤️</div>
+    <div class="heart">💜</div>
+    <div class="heart">❤️</div>
+    <div class="heart">💜</div>
+    <div class="heart">❤️</div>
 
     <script>
       function showParagraph() {
@@ -165,9 +114,9 @@
     var firstButton = document.getElementById("firstButton");
     firstButton.style.display = "none";
 
-    // Show the second button
+    // Still hide the second button
     var secondButton = document.getElementById("secondButton");
-    secondButton.style.display = "block";
+    secondButton.style.display = "none";
 }
 
 function sendWhatsAppMessage() {
@@ -177,6 +126,30 @@ function sendWhatsAppMessage() {
     var whatsappLink = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
     window.open(whatsappLink); // Open the link
 }
+window.onload = function() {
+    var hearts = document.querySelectorAll('.heart');
+
+    hearts.forEach(function(heart) {
+        // Randomize initial position when page loads
+        setRandomPosition(heart);
+
+        // Randomize position again every time the animation ends
+        heart.addEventListener('animationiteration', function() {
+            setRandomPosition(heart);
+        });
+
+        // Randomize the animation delay (hearts will start falling at different times)
+        var randomDelay = Math.random() * 5; // Random delay between 0 and 5 seconds
+        heart.style.animationDelay = randomDelay + 's';
+    });
+
+    // Function to set a random left position for each heart
+    function setRandomPosition(element) {
+        var randomPosition = Math.random() * 100; // Random left position between 0% and 100%
+        element.style.left = randomPosition + '%'; // Apply random left position
+    }
+};
+
 
     </script>
 
