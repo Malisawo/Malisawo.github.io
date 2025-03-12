@@ -48,9 +48,13 @@ function addMessageToChatWindow(message) {
 
 document.addEventListener('keypress', (event) => {
   if(event.key === 'Enter'){
-    const userInput = messageInput.value;
-    console.log('Sending message:', userInput);
-    socket.send(`${username}: ${userInput}`);
-    messageInput.value = '';
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      const userInput = messageInput.value;
+      console.log('Sending message:', userInput);
+      socket.send(`${username}: ${userInput}`);
+      messageInput.value = '';
+    } else {
+      console.error('WebSocket is not open. Cannot send message.');
+    }
   }
 });
