@@ -19,38 +19,36 @@ wss.on('connection', (ws) => {
     if(message.includes('joined the chat')){
       let username = message.split(' joined the chat')[0];
       if(existingUsers.includes(username)){
+        ws.send('Username already taken!');
         return ws.close();
       }
       existingUsers.push(username);
-      broadcastMessage(message);
-    }else{
-      broadcastMessage(message);
+      broadcastMessage(message, ws);
+    } else {
+      broadcastMessage(message, ws);
     }
   });
   ws.on('close', () => {
     clients = clients.filter(client => client !== ws);
     let closedUsername = '';
-    messages.filter(msg => {
+    messages.forEach(msg => {
       if(msg.includes(':')){
         let msgUsername = msg.split(': ')[0];
-        if(clients.findIndex(client => 
-          messages.find(msg => msg.includes(msgUsername)) 
-          === messages.find(msg => client === ws && msg.includes(msgUsername))) !== -1){
+        if(closedUsername === '' && !clients.some(client => messages.some(m => m.includes(msgUsername) && client !== ws))){
           closedUsername = msgUsername;
         }
-        return true;
       }
     });
     existingUsers = existingUsers.filter(user => user !== closedUsername);
   });
   ws.onerror = (error) => {
-    console.error('Error occurred');
+    console.error('Error occurred:', error);
   };
 });
 
-function broadcastMessage(message) {
+function broadcastMessage(message, sender) {
   clients.forEach(client => {
-    if (client !== ws && client.readyState === WebSocket.OPEN) {
+    if (client !== sender && client.readyState === WebSocket.OPEN) {
       client.send(`${message}`);
     }
   });
