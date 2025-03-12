@@ -8,12 +8,12 @@ let socket;
 console.log('Script loaded');
 joinButton.addEventListener('click', () => {
   console.log('Join button clicked');
-  if(!username){
+  if (!username) {
     username = prompt('Please enter your username:', '');
     localStorage.setItem('username', username);
     console.log('Username set:', username);
   }
-  socket = new WebSocket(`wss://${window.location.hostname}`);
+  socket = new WebSocket(`ws://${window.location.hostname}:8080`);
   console.log('WebSocket connection established');
   socket.onopen = () => {
     console.log('Connection open, sending join message');
@@ -23,7 +23,7 @@ joinButton.addEventListener('click', () => {
   socket.onmessage = (event) => {
     console.log('Received message:', event.data);
     const message = event.data;
-    if(message === 'Username already taken!'){
+    if (message === 'Username already taken!') {
       alert('Username already taken! Please choose another one.');
       localStorage.removeItem('username');
       joinButton.style.display = 'block';
@@ -44,7 +44,7 @@ sendButton.addEventListener('click', () => {
 });
 
 document.addEventListener('keypress', (event) => {
-  if(event.key === 'Enter'){
+  if (event.key === 'Enter') {
     sendMessage();
   }
 });
