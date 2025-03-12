@@ -1,169 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom right, #000000, #6a0dad); /* Gradient background */
-            color: #fff; /* White text */
-            overflow: hidden; /* Hide overflowing hearts */
-        }
-
-        .container {
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-            z-index: 1;
-            position: relative;
-            max-width: 600px;
-            margin: 100px auto;
-        }
-
-        h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Text shadow for better visibility */
-        }
-
-        p {
-            text-align: left ;
-            word-wrap: break-word;
-            font-size: 20px;
-            color: #fff;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow */
-        }
-
-        .button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            background-color: #fff;
-            color: #6a0dad;
-            border: none;
-            border-radius: 30px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .button:hover {
-            background-color: #eee;
-        }
-
-        /* Heart emoji styles */
-        .heart {
-    position: absolute;
-    font-size: 50px;
-    animation: fall 5s infinite ease-in-out;
-    opacity: 0.8;
-    top: -52px; /* Start from above the screen */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nydo Chat App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
     }
-
-        /* Animation to make the hearts fall */
-        @keyframes fall {
-            0% {
-                top: -50px;
-                opacity: 1;
-                transform: translateX(0);
-            }
-            100% {
-                top: 100vh;
-                opacity: 0;
-                transform: translateX(100px); /* Makes them drift slightly */
-            }
-        }
-
-        
-    </style>
+    #chat-window {
+      width: 80%;
+      height: 500px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    #message-input {
+      width: 80%;
+      height: 30px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    #send-button {
+      width: 15%;
+      height: 30px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
+  <h1>Realtime Chat App</h1><input id="username-input" type="text" placeholder="Enter username">
+  <button id="join-button">Join Chat</button>
+  <div id="chat-window"></div>
+  <input id="message-input" type="text" placeholder="Type a message...">
+  <button id="send-button">Send</button>
 
-    <div class="container">
-        <h1>Happy Birthday, Samantha !</h1>
-        <p style="display: none;">
-            Happy Birthday kiddo!🎂 <br> <br>
-            On your special day and always, I wish you unending joy, happiness, and love. 🎁 May this year bring you every blessing and success in all you're passionate about. You deserve it all! I'm honored to share in your journey. May today be unforgettable and our future together be brighter than ever. Enjoy every moment, my love! <span style="color:red ; font-size: 30px;" > &hearts;</span>🥳
-        </p>
-        <button id="firstButton" class="button" onclick="showParagraph()">Click Here!</button>
-
-        <button id="secondButton" class="button" style="display: none;" onclick="sendWhatsAppMessage()" disabled>Click for a surprise</button> <!-- Initially hidden -->
-
-    </div>
-
-    <!-- Adding multiple hearts to the body -->
-    <div class="heart">💜</div>
-    <div class="heart">❤️</div>
-    <div class="heart" > &#x1F389; </div>
-    <div class="heart">💜</div>
-    <div class="heart">❤️</div>
-    <div class="heart" > &#x1F389; </div>
-    <div class="heart">💜</div>
-    <div class="heart">❤️</div>
-    <div class="heart" > &#x1F389; </div>
-    <div class="heart">💜</div>
-    <div class="heart">❤️</div>
-    <div class="heart" > &#x1F389; </div> 
-
-    <script>
-      function showParagraph() {
-    // Show the paragraph
-    var paragraph = document.querySelector("p");
-    paragraph.style.display = "block";
-
-    //hide the heading 1
-    var heading = document.querySelector("h1");
-    heading.style.display = "none"; 
-
-    // Hide the first button
-    var firstButton = document.getElementById("firstButton");
-    firstButton.style.display = "none";
-
-    // Still hide the second button
-    var secondButton = document.getElementById("secondButton");
-    secondButton.style.display = "none";
-}
-
-function sendWhatsAppMessage() {
-    var phoneNumber = "265994797615"; // Replace with the actual phone number
-    var message = "Nydo, it is CODE 5"; // The message to send
-    var encodedMessage = encodeURIComponent(message); // Encode the message
-    var whatsappLink = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
-    window.open(whatsappLink); // Open the link
-}
-window.onload = function() {
-    var hearts = document.querySelectorAll('.heart');
-
-    hearts.forEach(function(heart) {
-        // Randomize initial position when page loads
-        setRandomPosition(heart);
-
-        // Randomize position again every time the animation ends
-        heart.addEventListener('animationiteration', function() {
-            setRandomPosition(heart);
-        });
-
-        // Randomize the animation delay (hearts will start falling at different times)
-        var randomDelay = Math.random() * 5; // Random delay between 0 and 5 seconds
-        heart.style.animationDelay = randomDelay + 's';
-    });
-
-    // Function to set a random left position for each heart
-    function setRandomPosition(element) {
-        var randomPosition = Math.random() * 100; // Random left position between 0% and 100%
-        element.style.left = randomPosition + '%'; // Apply random left position
-    }
-};
-
-
-    </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
