@@ -1,52 +1,47 @@
-let socket;
-let username;
-const usernameInput = document.getElementById('username-input');
 const joinButton = document.getElementById('join-button');
 const chatWindow = document.getElementById('chat-window');
-const messageInput = document.getElementById('message-input');
-const sendButton = document.getElementById('send-button')
+let username;
+let socket;
 
 joinButton.addEventListener('click', () => {
-  username = usernameInput.value;
-  socket = new WebSocket('ws://localhost:8080');
+  if(!username){
+    username = prompt('Please enter your username:', '');
+    localStorage.setItem('username', username);
+  }
+  socket = new WebSocket(location.origin.replace('http', 'wss'));
   socket.onopen = () => {
     socket.send(`${username} joined the chat`);
-  };
-  socket.onerror = (error) => {
-    console.log('Error occurred');
+    joinButton.style.display = 'none';
   };
   socket.onmessage = (event) => {
     const message = event.data;
     if(message === 'Username already taken!'){
       alert('Username already taken! Please choose another one.');
       localStorage.removeItem('username');
+      joinButton.style.display = 'block';
     } else {
       addMessageToChatWindow(message);
     }
   };
-  socket.onmessage = (event) => {
-    const message = event.data;
-    addMessageToChatWindow(message);
+  socket.onclose = () => {
+    console.log('Disconnected from server');
   };
   socket.onerror = (error) => {
-    console.log('Error occurred');
-  };
-  socket.onclose = () => {
-    console.log('Connection closed');
+    console.error('Error occurred');
   };
 });
-sendButton.addEventListener('click', () => {
-  if(socket.readyState === WebSocket.OPEN){
-    const message = messageInput.value;
-    socket.send(`${username}: ${message}`);
-    messageInput.value = '';
-  }else{
-    console.log('Connection not open');
-  }
-});
+
 function addMessageToChatWindow(message) {
   const messageElement = document.createElement('div');
   messageElement.innerText = message;
   chatWindow.appendChild(messageElement);
   chatWindow.scrollTop = chatWindow.scrollHeight;
 }
+
+document.addEventListener('keypress', (event) => {
+  if(event.key === 'Enter'){
+    const messageInput = document.getElementById('message-input');
+    socket.send(`${username}: ${messageInput.value}`);
+    messageInput.value = '';
+  }
+});
