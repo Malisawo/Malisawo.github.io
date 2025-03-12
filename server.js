@@ -38,11 +38,13 @@ wss.on('connection', (ws) => {
     });
     existingUsers = existingUsers.filter(user => user !== closedUsername);
   });
-};
+});
   ws.onerror = (error) => {
     console.error('Error occurred:', error);
-  });
+  };
 
+
+ 
 function broadcastMessage(message, sender) {
   clients.forEach(client => {
     if (client !== sender && client.readyState === WebSocket.OPEN) {
